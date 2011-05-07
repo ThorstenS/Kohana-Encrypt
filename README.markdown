@@ -32,7 +32,7 @@ or a path to the keyfile formated "file://path/to/key.pem"
 Usage
 -----
 
-$encrypt = Encrypt::instance('openssl');
-$text = $encrypt->encode('Hallo Welt!');
-echo $text;
-echo $encrypt->decode($text);
+    $encrypt = Encrypt::instance('openssl');
+    $text = $encrypt->encode('Hallo Welt!');
+    echo $text;
+    echo $encrypt->decode($text);
