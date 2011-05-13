@@ -27,7 +27,7 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 			if ( ! isset($config['key']))
 			{
 				// No default encryption key is provided!
-				throw new Kohana_Exception('No encryption key is defined in the encryption configuration group: :group',
+				throw new Encrypt_Exception('No encryption key is defined in the encryption configuration group: :group',
 					array(':group' => $name));
 			}
 
@@ -170,5 +170,10 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 
 		// Return the decrypted data, trimming the \0 padding bytes from the end of the data
 		return rtrim(mcrypt_decrypt($this->_cipher, $this->_key, $data, $this->_mode, $iv), "\0");
-	}	
+	}
+	
+	public function get_cipher_methods()
+    {
+        return mcrypt_list_algorithms();
+    }
 }

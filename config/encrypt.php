@@ -21,13 +21,23 @@ return array(
         'default' => array(
             
             // Methods used for en-/decryption
-            'encrypt_with'   => 'openssl_public_encrypt',
-            'decrypt_with'   => 'openssl_private_decrypt',
+            'encrypt_with'   => 'openssl_encrypt',
+            'decrypt_with'   => 'openssl_decrypt',
             
             // If key based method chosen: provide keys or path to key
             // format file://relative/path/to/file.pem
             'public_key'  => 'file:///absolute/path/to/my_public_key.pem',
             'private_key' => 'file:///absolute/path/to/my_private_key.pem',
+            
+            // 
+            // For methods: openssl_encrypt / openssl_decrypt
+            //
+            // Cipher
+            'method'    => "AES-128-CBC",
+            // Password
+            'password'  => '',
+            // Initialization vector
+            'iv'        => '',
         ),
     ),
 );

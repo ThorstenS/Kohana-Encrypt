@@ -27,7 +27,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 			if ( empty($config['encrypt_with']) OR empty($config['decrypt_with']) )
 			{
 				// No default encryption key is provided!
-				throw new Kohana_Exception('No en-/decryption method is defined in the encryption configuration group: :group',
+				throw new Encrypt_Exception('No en-/decryption method is defined in the encryption configuration group: :group',
 					array(':group' => $name));
 			}
 
@@ -88,16 +88,20 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		        $data = $this->_openssl_private_encrypt($data);
 		        break;
             
+            case 'openssl_encrypt':
+                $data = $this->_openssl_encrypt($data);
+                break;
+                
             // There is no default method, throw exception
             default:
-                throw new Encryption_Exception('Encryption method not implemented');
+                throw new Encrypt_Exception('Encryption method not implemented');
                 break;
 		}
 		
 		return base64_encode($data);
 	}
     
-    private function _openssl_public_encrypt($data)
+    protected function _openssl_public_encrypt($data)
     {
         $result = openssl_public_encrypt($data, $return, $this->public_key);
         
@@ -109,13 +113,25 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         throw new Encrypt_Exception('Encryption failed');
     }
     
-    private function _openssl_private_encrypt($data)
+    protected function _openssl_private_encrypt($data)
     {
         $result = openssl_private_encrypt($data, $return, $this->private_key);
         
         if ( $result )
         {
             return $return;
+        }
+        
+        throw new Encrypt_Exception('Encryption failed');
+    }
+    
+    protected function _openssl_encrypt($data)
+    {
+        $result = openssl_encrypt($data, $this->method, $this->password, true, $this->iv);
+        
+        if ( $result )
+        {
+            return $result;
         }
         
         throw new Encrypt_Exception('Encryption failed');
@@ -145,12 +161,16 @@ class Kohana_Encrypt_Openssl extends Encrypt {
             case 'openssl_public_decrypt':
                 return $this->_openssl_public_decrypt($data);
 		        break;
+		  
+            case 'openssl_decrypt':
+                return $this->_openssl_decrypt($data);
+                break;
 		}
 		
-		throw new Encryption_Exception('Decryption method not implemented');
+		throw new Encrypt_Exception('Decryption method not implemented');
 	}
 	
-	private function _openssl_private_decrypt($data)
+	protected function _openssl_private_decrypt($data)
 	{
         $result = openssl_private_decrypt($data, $return, $this->private_key);
         
@@ -162,7 +182,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         throw new Encrypt_Exception('Decryption failed');
 	}
 	
-	private function _openssl_public_decrypt($data)
+	protected function _openssl_public_decrypt($data)
 	{
         $result = openssl_public_decrypt($data, $return, $this->public_key);
         
@@ -173,4 +193,21 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         
         throw new Encrypt_Exception('Decryption failed');
 	}
+	
+	protected function _openssl_decrypt($data)
+    {
+        $result = openssl_decrypt($data, $this->method, $this->password, true, $this->iv);
+        
+        if ( $result )
+        {
+            return $result;
+        }
+        
+        throw new Encrypt_Exception('Decryption failed');
+    }
+    
+    public function get_cipher_methods()
+    {
+        return openssl_get_cipher_methods();
+    }
 }
