@@ -88,6 +88,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		        $data = $this->_openssl_private_encrypt($data);
 		        break;
             
+            // Encrypt with openssl_encrypt
             case 'openssl_encrypt':
                 $data = $this->_openssl_encrypt($data);
                 break;
@@ -161,7 +162,8 @@ class Kohana_Encrypt_Openssl extends Encrypt {
             case 'openssl_public_decrypt':
                 return $this->_openssl_public_decrypt($data);
 		        break;
-		  
+            
+            // decrypt with openssl_decrypt
             case 'openssl_decrypt':
                 return $this->_openssl_decrypt($data);
                 break;
