@@ -55,11 +55,6 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		{
             $this->public_key = openssl_pkey_get_public($this->public_key);
 		}
-		
-		if ( ! empty($this->private_key) AND substr($this->private_key, 0, 4) == 'file' )
-		{
-            $this->private_key = openssl_pkey_get_private($this->private_key);
-		}
 	}
 
 	/**
@@ -72,9 +67,10 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	 * displayed, and passed using most other means without corruption.
 	 *
 	 * @param   string  data to be encrypted
+	 * @param   string  clear text password for private key if needed
 	 * @return  string
 	 */
-	public function encode($data)
+	public function encode($data, $password = NULL)
 	{
 		switch ($this->encrypt_with) 
 		{
@@ -85,10 +81,9 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		      
             // Encrypt with openssl_private_encrypt
 		    case 'openssl_private_encrypt':
-		        $data = $this->_openssl_private_encrypt($data);
+		        $data = $this->_openssl_private_encrypt($data, $password);
 		        break;
             
-            // Encrypt with openssl_encrypt
             case 'openssl_encrypt':
                 $data = $this->_openssl_encrypt($data);
                 break;
@@ -114,10 +109,10 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         throw new Encrypt_Exception('Encryption failed');
     }
     
-    protected function _openssl_private_encrypt($data)
+    protected function _openssl_private_encrypt($data, $password = NULL)
     {
-        $result = openssl_private_encrypt($data, $return, $this->private_key);
-        
+        $result = openssl_private_encrypt($data, $return, openssl_pkey_get_private($this->private_key, $password));
+
         if ( $result )
         {
             return $return;
@@ -144,10 +139,11 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	 *     $data = $encrypt->decode($data);
 	 *
 	 * @param   string  encoded string to be decrypted
+	 * @param   string  clear text password for private key if needed
 	 * @return  FALSE   if decryption fails
 	 * @return  string
 	 */
-	public function decode($data)
+	public function decode($data, $password = NULL)
 	{
         $data = base64_decode($data, true);
         
@@ -155,15 +151,14 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		{
             // decrypt with openssl_public_encrypt
 		    case 'openssl_private_decrypt':
-		        return $this->_openssl_private_decrypt($data);
+		        return $this->_openssl_private_decrypt($data, $password);
 		        break;
             
             // decrypt with openssl_public_decrypt
             case 'openssl_public_decrypt':
                 return $this->_openssl_public_decrypt($data);
 		        break;
-            
-            // decrypt with openssl_decrypt
+		  
             case 'openssl_decrypt':
                 return $this->_openssl_decrypt($data);
                 break;
@@ -172,10 +167,10 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		throw new Encrypt_Exception('Decryption method not implemented');
 	}
 	
-	protected function _openssl_private_decrypt($data)
+	protected function _openssl_private_decrypt($data, $password = NULL)
 	{
-        $result = openssl_private_decrypt($data, $return, $this->private_key);
-        
+        $result = openssl_private_decrypt($data, $return, openssl_pkey_get_private($this->private_key, $password));
+
         if ( $result )
         {
             return $return;
@@ -184,7 +179,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         throw new Encrypt_Exception('Decryption failed');
 	}
 	
-	protected function _openssl_public_decrypt($data)
+	protected function _openssl_public_decrypt($data, $password = NULL)
 	{
         $result = openssl_public_decrypt($data, $return, $this->public_key);
         
@@ -199,7 +194,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	protected function _openssl_decrypt($data)
     {
         $result = openssl_decrypt($data, $this->method, $this->password, true, $this->iv);
-        
+
         if ( $result )
         {
             return $result;

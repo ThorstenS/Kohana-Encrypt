@@ -39,3 +39,7 @@ Usage
     $text = $encrypt->encode('Hello World!');
     echo $text;
     echo $encrypt->decode($text);
+
+If your private key is password protected, submit the password to the encode() / decode() methods:
+
+    echo $encrypt->decode($text, $password);
