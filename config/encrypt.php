@@ -33,9 +33,11 @@ return array(
     'openssl'   => array(
         'default' => array(
             
-            // Methods used for en-/decryption
-            'encrypt_with'   => '',
-            'decrypt_with'   => '',
+            // Method used for encryption, either 
+            // openssl_encrypt 
+            // openssl_public_encrypt or 
+            // openssl_private_encrypt
+            'encrypt_method'   => '',
             
             // If key based method chosen: provide keys or path to key
             // format file://relative/path/to/file.pem
@@ -43,10 +45,10 @@ return array(
             'private_key' => '',
             
             // 
-            // For methods: openssl_encrypt / openssl_decrypt
+            // For method: openssl_encrypt
             //
             // Cipher
-            'method'    => "",
+            'method'    => '',
             // Password
             'password'  => '',
             // Initialization vector
@@ -54,42 +56,20 @@ return array(
         ),
         
         'unittest_encrypt_decrypt' => array(
-            
-            // Methods used for en-/decryption
-            'encrypt_with'   => 'openssl_encrypt',
-            'decrypt_with'   => 'openssl_decrypt',
-            
-            // 
-            // For methods: openssl_encrypt / openssl_decrypt
-            //
-            // Cipher
+            'encrypt_method'   => 'openssl_encrypt',
             'method'    => 'AES-128-CBC',
-            // Password
             'password'  => 'unittestpassword',
-            // Initialization vector
             'iv'        => 'strangestring123',
         ),
         
         'unittest_public_encrypt_private_decrypt' => array(
-            
-            // Methods used for en-/decryption
-            'encrypt_with'   => 'openssl_public_encrypt',
-            'decrypt_with'   => 'openssl_private_decrypt',
-            
-            // If key based method chosen: provide keys or path to key
-            // format file://relative/path/to/file.pem
+            'encrypt_method'   => 'openssl_public_encrypt',
             'public_key'  => 'file://' . MODPATH . '/encrypt/tests/data/publickey.pem',
             'private_key' => 'file://' . MODPATH . '/encrypt/tests/data/privatekey.pem',
         ),
         
         'unittest_private_encrypt_public_decrypt' => array(
-            
-            // Methods used for en-/decryption
-            'encrypt_with'   => 'openssl_private_encrypt',
-            'decrypt_with'   => 'openssl_public_decrypt',
-            
-            // If key based method chosen: provide keys or path to key
-            // format file://relative/path/to/file.pem
+            'encrypt_method'   => 'openssl_private_encrypt',
             'public_key'  => 'file://' . MODPATH . '/encrypt/tests/data/publickey.pem',
             'private_key' => 'file://' . MODPATH . '/encrypt/tests/data/privatekey.pem',
         ),

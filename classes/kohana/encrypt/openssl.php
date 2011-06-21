@@ -24,10 +24,10 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 			// Load the configuration data
 			$config = Kohana::config('encrypt')->openssl[$name];
 
-			if ( empty($config['encrypt_with']) OR empty($config['decrypt_with']) )
+			if ( empty($config['encrypt_method']) )
 			{
 				// No default encryption key is provided!
-				throw new Encrypt_Exception('No en-/decryption method is defined in the encryption configuration group: :group',
+				throw new Encrypt_Exception('No encryption method is defined in the encryption configuration group: :group',
 					array(':group' => $name));
 			}
 
@@ -50,11 +50,6 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		{
             $this->$key = $value;
 		}
-		
-		if ( ! empty($this->public_key) AND substr($this->public_key, 0, 4) == 'file' )
-		{
-            $this->public_key = openssl_pkey_get_public($this->public_key);
-		}
 	}
 
 	/**
@@ -72,7 +67,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	 */
 	public function encode($data, $password = NULL)
 	{
-		switch ($this->encrypt_with) 
+		switch ($this->encrypt_method) 
 		{
             // Encrypt with openssl_public_encrypt
 		    case 'openssl_public_encrypt':
@@ -99,7 +94,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
     
     protected function _openssl_public_encrypt($data)
     {
-        $result = openssl_public_encrypt($data, $return, $this->public_key);
+        $result = openssl_public_encrypt($data, $return, openssl_pkey_get_public($this->public_key));
         
         if ( $result )
         {
@@ -147,19 +142,19 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	{
         $data = base64_decode($data, true);
         
-		switch ($this->decrypt_with) 
+		switch ($this->encrypt_method) 
 		{
-            // decrypt with openssl_public_encrypt
-		    case 'openssl_private_decrypt':
+            // decrypt with openssl_private_decrypt
+		    case 'openssl_public_encrypt':
 		        return $this->_openssl_private_decrypt($data, $password);
 		        break;
             
             // decrypt with openssl_public_decrypt
-            case 'openssl_public_decrypt':
+            case 'openssl_private_encrypt':
                 return $this->_openssl_public_decrypt($data);
 		        break;
 		  
-            case 'openssl_decrypt':
+            case 'openssl_encrypt':
                 return $this->_openssl_decrypt($data);
                 break;
 		}
@@ -181,7 +176,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	
 	protected function _openssl_public_decrypt($data, $password = NULL)
 	{
-        $result = openssl_public_decrypt($data, $return, $this->public_key);
+        $result = openssl_public_decrypt($data, $return, openssl_pkey_get_public($this->public_key));
         
         if ( $result )
         {
