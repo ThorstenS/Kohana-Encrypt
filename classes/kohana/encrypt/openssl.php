@@ -22,7 +22,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 		if ( ! isset(Encrypt::$instances['openssl'][$name]))
 		{
 			// Load the configuration data
-			$config = Kohana::config('encrypt')->openssl[$name];
+			$config = Kohana::$config->load('encrypt')->openssl[$name];
 
 			if ( empty($config['encrypt_method']) )
 			{

@@ -22,7 +22,7 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 		if ( ! isset(Encrypt::$instances['mcrypt'][$name]))
 		{
 			// Load the configuration data
-			$config = Kohana::config('encrypt')->mcrypt[$name];
+			$config = Kohana::$config->load('encrypt')->mcrypt[$name];
 
 			if ( ! isset($config['key']))
 			{
