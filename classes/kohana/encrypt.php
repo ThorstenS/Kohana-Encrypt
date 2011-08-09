@@ -42,7 +42,7 @@ abstract class Kohana_Encrypt {
 		{
 			$class = 'Encrypt_' . ucfirst($driver);
 
-			Encrypt::$instances[$driver][$name] = $class::instance($name);
+			Encrypt::$instances[$driver][$name] = $class::instance($driver, $name);
 		}
 
 		return Encrypt::$instances[$driver][$name];

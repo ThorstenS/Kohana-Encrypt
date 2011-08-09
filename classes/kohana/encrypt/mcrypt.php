@@ -11,7 +11,7 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 	 * @param   string  configuration group name
 	 * @return  Encrypt
 	 */
-	public static function instance($name = NULL)
+	public static function instance($driver = 'mcrypt', $name = NULL)
 	{
 		if ($name === NULL)
 		{
@@ -44,7 +44,7 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 			}
 
 			// Create a new instance
-			Encrypt::$instances['mcrypt'][$name] = new Kohana_Encrypt_Mcrypt($config['key'], $config['mode'], $config['cipher']);
+			Encrypt::$instances['mcrypt'][$name] = new Encrypt_Mcrypt($config['key'], $config['mode'], $config['cipher']);
 		}
 
 		return Encrypt::$instances['mcrypt'][$name];
@@ -172,6 +172,9 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 		return rtrim(mcrypt_decrypt($this->_cipher, $this->_key, $data, $this->_mode, $iv), "\0");
 	}
 	
+	/*
+	 * Return the implemented methods (ciphers)
+	 */
 	public function get_cipher_methods()
     {
         return mcrypt_list_algorithms();

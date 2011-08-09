@@ -74,4 +74,43 @@ return array(
             'private_key' => 'file://' . MODPATH . '/encrypt/tests/data/privatekey.pem',
         ),
     ),
+    
+    'crypt' => array(
+    	'default' => array(
+    		/**
+    		 * The following options must be set:
+    		 *
+    		 * string  cipher  encryption cipher, one of the crpyt cipher constants as string
+    		 * integer  cost   For BLOWFISH ONLY: The two digit cost parameter is the base-2 logarithm of the iteration count for the underlying Blowfish-based hashing algorithmeter and must be in range 04-31
+    		 * integer loop   For SHAxxx ONLY: The numeric value is used to indicate how many times the hashing loop should be executed, much like the cost parameter on Blowfish
+    		 * integer rounds For SHAxxx ONLY: Minimum of 1000 and a maximum of 999,999,999.
+    		 */
+    		'cipher'  => 'CRYPT_BLOWFISH',
+    		'cost'    => 13,
+    	),
+    	
+    	'unittest_CRYPT_STD_DES' => array(
+    		'cipher' => 'CRYPT_STD_DES',
+        ),
+        'unittest_CRYPT_CRYPT_EXT_DES' => array(
+    		'cipher' => 'CRYPT_EXT_DES',
+        ),
+        'unittest_CRYPT_CRYPT_MD5' => array(
+    		'cipher' => 'CRYPT_MD5',
+        ),
+        'unittest_CRYPT_BLOWFISH' => array(
+    		'cipher' => 'CRYPT_BLOWFISH',
+    		'cost'    => 13,
+        ),
+        'unittest_CRYPT_CRYPT_SHA256' => array(
+    		'cipher' => 'CRYPT_SHA256',
+    		'loop'    => 13,
+    		'rounds'  => 13000,
+        ),
+        'unittest_CRYPT_CRYPT_SHA512' => array(
+    		'cipher' => 'CRYPT_SHA512',
+    		'loop'    => 13,
+    		'rounds'  => 13000,
+        ),
+    ),
 );

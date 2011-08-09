@@ -11,7 +11,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	 * @param   string  configuration group name
 	 * @return  Encrypt
 	 */
-	public static function instance($name = NULL)
+	public static function instance($driver = 'openssl', $name = NULL)
 	{
 		if ($name === NULL)
 		{
@@ -32,7 +32,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 			}
 
 			// Create a new instance
-			Encrypt::$instances['openssl'][$name] = new Kohana_Encrypt_Openssl($config);
+			Encrypt::$instances['openssl'][$name] = new Encrypt_Openssl($config);
 		}
 
 		return Encrypt::$instances['openssl'][$name];
@@ -198,6 +198,9 @@ class Kohana_Encrypt_Openssl extends Encrypt {
         throw new Encrypt_Exception('Decryption failed');
     }
     
+    /*
+	 * Return the implemented methods (ciphers)
+	 */
     public function get_cipher_methods()
     {
         return openssl_get_cipher_methods();
