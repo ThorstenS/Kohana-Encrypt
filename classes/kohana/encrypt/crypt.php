@@ -39,7 +39,11 @@ class Kohana_Encrypt_Crypt extends Encrypt {
 			}
             
 			// Create a new instance
-			Encrypt::$instances['crypt'][$name] = new Encrypt_Crypt($config['cipher']);
+			Encrypt::$instances['crypt'][$name] = new Encrypt_Crypt(
+                Arr::get($config, 'cipher'), 
+                Arr::get($config, 'cost', 0), 
+                Arr::get($config, 'loop', 0), 
+                Arr::get($config, 'rounds', 0));
 		}
 
 		return Encrypt::$instances['crypt'][$name];
