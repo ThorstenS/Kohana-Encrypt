@@ -233,12 +233,12 @@ class Kohana_Encrypt_Crypt extends Encrypt {
             $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
         }
         
-        return '$5$rounds='.$this->rounds.'$' . $this->loop . '$' . $salt;
+        return '$5$rounds='.$this->rounds.'$' . $salt;
     }
     
     protected function _extract_salt_CRYPT_SHA256($encrypted)
     {
-        return substr($encrypted, 0, 35);
+        return substr($encrypted, 0, strpos($encrypted, '$', 3) + 1 + 16);
     }
     
     protected function _random_salt_CRYPT_SHA512()
@@ -253,11 +253,11 @@ class Kohana_Encrypt_Crypt extends Encrypt {
             $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
         }
         
-        return '$6$rounds='.$this->rounds.'$' . $this->loop . '$' . $salt;
+        return '$6$rounds='.$this->rounds.'$' . $salt;
     }
     
     protected function _extract_salt_CRYPT_SHA512($encrypted)
     {
-        return substr($encrypted, 0, 35);
+        return substr($encrypted, 0, strpos($encrypted, '$', 3) + 1 + 16);
     }
 }
