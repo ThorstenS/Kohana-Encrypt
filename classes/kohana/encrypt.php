@@ -3,6 +3,7 @@
  * This is a hack of the original kohana encrypt class
  * to support mycrypt and openssl
  *
+ * @package    Encrypt
  */
 abstract class Kohana_Encrypt {
     
