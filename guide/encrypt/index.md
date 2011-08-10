@@ -1,6 +1,4 @@
-Encrypt
-============
-
+# Encrypt
 Encrypt is a simple hack for Kohana Frameworks original encrypt class to support
 OpenSSL and its en-/decrypting methods with public / private keys and password encryption.
 
@@ -11,10 +9,7 @@ Kohanas standard encryption class.
 
 Additionally the crypt() function is supported to hash strings.
 
-
-Installation
------
-
+# Installation
 Copy this module to your modules directory and initialize it in your bootstrap.php
 
 bootstrap.php
@@ -23,13 +18,10 @@ bootstrap.php
         'kohana-encrypt'           => MODPATH . 'kohana-encrypt',
     ));
     
-Configuration
------
-
+# Configuration
 Copy the encrypt.php config file from this module to your applications config file.
 
 Please check the pages specific to the encryption method you want to use for more configuration advice.
 
-Usage
------
+# Usage
 Please check the pages specific to the encryption method you want to use for usage examples.

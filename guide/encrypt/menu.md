@@ -1,4 +1,4 @@
-## [Encrypt](index)
+## [Encrypt](./)
  - [mCrypt](mcrypt)
  - [OpenSSL](openssl)
  - [Crypt](crypt)

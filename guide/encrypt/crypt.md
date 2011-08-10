@@ -35,7 +35,8 @@ No further settings are required.
 ### CRYPT_BLOWFISH
 The two digit "cost" parameter must be specified. It is the base-2 logarithm of the iteration count for the algorithm and must be in range 04-31.
 
-### CRYPT_SHA256 / CRYPT_SHA512
+### CRYPT_SHA256 
+### CRYPT_SHA512
 The parameter 'rounds' must be specified. It indicates how many times the hashing loop should be executed, much like the cost parameter on Blowfish. It must be in range 1000-999,999,999.
 
 ## Usage

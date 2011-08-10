@@ -43,7 +43,8 @@ You'll also need a password, that, of course, you'll never share with anybody.
 
 And you'll need an initialization vector, the length of it depends on the method you've chosen.
 
-### Openssl_Public_Encrypt / Openssl_Private_Encrypt
+### Openssl_Public_Encrypt
+### Openssl_Private_Encrypt
 
 To use OpenSSL and keyfile based encryption you need to provide a public / private key in the config file.
 
