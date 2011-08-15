@@ -143,17 +143,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_STD_DES()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 2; $i++ )
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return $salt;
+        return Text::random('alnum', 2);
     }
     
     protected function _extract_salt_CRYPT_STD_DES($encrypted)
@@ -163,17 +153,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_EXT_DES()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 8; $i++ ) 
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return '_' . $salt;
+        return '_' . Text::random('alnum', 8);
     }
     
     protected function _extract_salt_CRYPT_EXT_DES($encrypted)
@@ -183,17 +163,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_MD5()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 9; $i++ ) 
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return '$1$' . $salt;
+        return '$1$' . Text::random('alnum', 9);
     }
     
     protected function _extract_salt_CRYPT_MD5($encrypted)
@@ -203,17 +173,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_BLOWFISH()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 22; $i++ ) 
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return '$2a$' . $this->cost . '$' . $salt;
+        return '$2a$' . $this->cost . '$' . Text::random('alnum', 22);
     }
     
     protected function _extract_salt_CRYPT_BLOWFISH($encrypted)
@@ -223,17 +183,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_SHA256()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 16; $i++ ) 
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return '$5$rounds='.$this->rounds.'$' . $salt;
+        return '$5$rounds='.$this->rounds.'$' . Text::random('alnum', 16);
     }
     
     protected function _extract_salt_CRYPT_SHA256($encrypted)
@@ -243,17 +193,7 @@ class Kohana_Encrypt_Crypt extends Encrypt {
     
     protected function _random_salt_CRYPT_SHA512()
     {
-        $tmp_salt = $salt = '';
-        for ( $i = 0; $i < rand(80, 200); $i++ ) 
-        {
-            $tmp_salt .= substr(str_shuffle(self::SALT_CHARACTERS), 0, 1);
-        }
-        for ( $i = 0; $i < 16; $i++ ) 
-        {
-            $salt .= $tmp_salt[ rand(0, strlen($tmp_salt) - 1) ];
-        }
-        
-        return '$6$rounds='.$this->rounds.'$' . $salt;
+        return '$6$rounds='.$this->rounds.'$' . Text::random('alnum', 16);
     }
     
     protected function _extract_salt_CRYPT_SHA512($encrypted)
