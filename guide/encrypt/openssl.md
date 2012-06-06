@@ -55,7 +55,7 @@ Please note: To get the maximum of security out of this method, you should not, 
 
 ## Usage
 
-    $encrypt = Encrypt::instance('openssl');
+    $encrypt = Encrypt::instance(null, 'openssl');
     $text = $encrypt->encode('Hello World!');
     echo $text;
     echo $encrypt->decode($text);

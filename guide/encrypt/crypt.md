@@ -43,7 +43,7 @@ The parameter 'rounds' must be specified. It indicates how many times the hashin
 
 Beware that crypt() produces a hash, it is not reversible, means you can't get back the original string you encrypted.
 
-    $encrypt = Encrypt::instance('crypt');
+    $encrypt = Encrypt::instance(null, 'crypt');
     $text = $encrypt->encode('Hello World!');
     echo $text;
     var_dump($encrypt->check('Hello World!', $text));
