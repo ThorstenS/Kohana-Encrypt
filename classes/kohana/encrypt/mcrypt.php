@@ -11,7 +11,7 @@ class Kohana_Encrypt_Mcrypt extends Encrypt {
 	 * @param   string  configuration group name
 	 * @return  Encrypt
 	 */
-	public static function instance($driver = 'mcrypt', $name = NULL)
+	public static function instance($name = NULL, $driver = 'mcrypt')
 	{
 		if ($name === NULL)
 		{

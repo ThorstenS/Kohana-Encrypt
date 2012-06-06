@@ -4,7 +4,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 {
     function providerMcrypt()
 	{
-        $encrypt = Encrypt::instance('mcrypt', 'unittest');
+        $encrypt = Encrypt::instance('unittest', 'mcrypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -17,7 +17,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testMcrypt($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('mcrypt', 'unittest');
+        $encrypt = Encrypt::instance('unittest', 'mcrypt');
         
 		$this->assertSame(
 			$encrypt->decode($encrypted),
@@ -27,7 +27,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerOpenSSLencryptOpenSSLdecrypt()
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_encrypt_decrypt');
+        $encrypt = Encrypt::instance('unittest_encrypt_decrypt', 'openssl');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -40,7 +40,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testOpenSSLencode($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_encrypt_decrypt');
+        $encrypt = Encrypt::instance('unittest_encrypt_decrypt', 'openssl');
         
 		$this->assertSame(
 			$encrypt->encode($original),
@@ -53,7 +53,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testOpenSSLdecode($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_encrypt_decrypt');
+        $encrypt = Encrypt::instance('unittest_encrypt_decrypt', 'openssl');
         
 		$this->assertSame(
 			$encrypt->decode($encrypted),
@@ -64,7 +64,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerPublicEncryptPrivateDecrypt()
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_public_encrypt_private_decrypt');
+        $encrypt = Encrypt::instance('unittest_public_encrypt_private_decrypt', 'openssl');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -77,7 +77,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testOpenSSLPublicEncodePrivateDecode($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_public_encrypt_private_decrypt');
+        $encrypt = Encrypt::instance('unittest_public_encrypt_private_decrypt', 'openssl');
         
 		$this->assertSame(
 			$encrypt->decode($encrypted),
@@ -87,7 +87,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerPrivateEncryptPublicDecrypt()
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_private_encrypt_public_decrypt');
+        $encrypt = Encrypt::instance('unittest_private_encrypt_public_decrypt', 'openssl');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -100,7 +100,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testOpenSSLPrivateEncodePublicDecode($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('openssl', 'unittest_private_encrypt_public_decrypt');
+        $encrypt = Encrypt::instance('unittest_private_encrypt_public_decrypt', 'openssl');
         
 		$this->assertSame(
 			$encrypt->decode($encrypted),
@@ -110,7 +110,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptStdDes()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_STD_DES');
+        $encrypt = Encrypt::instance('unittest_CRYPT_STD_DES', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -123,7 +123,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptStdDes($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_STD_DES');
+        $encrypt = Encrypt::instance('unittest_CRYPT_STD_DES', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)
@@ -132,7 +132,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptExtDes()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_EXT_DES');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_EXT_DES', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -145,7 +145,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptExtDes($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_EXT_DES');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_EXT_DES', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)
@@ -154,7 +154,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptMD5()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_MD5');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_MD5', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -167,7 +167,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptMD5($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_MD5');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_MD5', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)
@@ -176,7 +176,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptBlowfish()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_BLOWFISH');
+        $encrypt = Encrypt::instance('unittest_CRYPT_BLOWFISH', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -189,7 +189,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptBlowfish($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_BLOWFISH');
+        $encrypt = Encrypt::instance('unittest_CRYPT_BLOWFISH', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)
@@ -198,7 +198,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptSha256()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_SHA256');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_SHA256', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -211,7 +211,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptSha256($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_SHA256');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_SHA256', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)
@@ -220,7 +220,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	
 	function providerCryptSha512()
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_SHA512');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_SHA512', 'crypt');
         
 		return array(
 			array('One set of testcase data', $encrypt->encode('One set of testcase data')),
@@ -233,7 +233,7 @@ class EncryptTest extends Kohana_UnitTest_TestCase
 	 */
 	function testCryptSha512($original, $encrypted)
 	{
-        $encrypt = Encrypt::instance('crypt', 'unittest_CRYPT_CRYPT_SHA512');
+        $encrypt = Encrypt::instance('unittest_CRYPT_CRYPT_SHA512', 'crypt');
         
 		$this->assertTrue(
 			$encrypt->check($original, $encrypted)

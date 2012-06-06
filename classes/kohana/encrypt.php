@@ -31,7 +31,7 @@ abstract class Kohana_Encrypt {
 	 * @param   string  configuration group name
 	 * @return  Encrypt
 	 */
-	public static function instance($driver = 'mcrypt', $name = NULL)
+	public static function instance($name = NULL, $driver = 'mcrypt')
 	{
 		if ($name === NULL)
 		{
@@ -43,7 +43,7 @@ abstract class Kohana_Encrypt {
 		{
 			$class = 'Encrypt_' . ucfirst($driver);
 
-			Encrypt::$instances[$driver][$name] = $class::instance($driver, $name);
+			Encrypt::$instances[$driver][$name] = $class::instance($name, $driver);
 		}
 
 		return Encrypt::$instances[$driver][$name];

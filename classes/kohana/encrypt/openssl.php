@@ -11,7 +11,7 @@ class Kohana_Encrypt_Openssl extends Encrypt {
 	 * @param   string  configuration group name
 	 * @return  Encrypt
 	 */
-	public static function instance($driver = 'openssl', $name = NULL)
+	public static function instance($name = NULL, $driver = 'openssl')
 	{
 		if ($name === NULL)
 		{
